@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TNTUNES | Professional Pop Production</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 引入 Inter 和 繁體中文的 Noto Sans TC 字體 */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+TC:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+        
+        /* 更改主題色漸變：從橙色改為紅色系 */
+        .gradient-text {
+            background: linear-gradient(to right, #ef4444, #dc2626); /* Red 500 -> Red 600 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bg {
+            /* 英雄區塊的背景漸變效果 (從 Orange 0.15 改為 Red 0.15) */
+            background-image: radial-gradient(circle at 50% 50%, rgba(239, 68, 68, 0.15) 0%, rgba(10, 10, 10, 1) 70%);
+        }
+        
+        /* 自定義捲軸樣式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+        }
+        /* 更改捲軸 hover 色為紅色 */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ef4444; /* Red 500 */
+        }
+        
+        /* Lucide Icons - 這是我們在純 HTML 中使用 SVG 圖標的方式 */
+        .icon-svg {
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+
+        /* 讓可點擊的作品集卡片看起來像連結，並提供點擊反饋 */
+        /* 統一所有作品卡片的樣式為 portfolio-link-card */
+        .portfolio-link-card {
+            display: block; /* 確保 <a> 佔滿空間 */
+            transition: all 0.3s ease;
+        }
+        .portfolio-link-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.2), 0 4px 6px -2px rgba(239, 68, 68, 0.1);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- 導航欄 (Navigation) -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tighter flex items-center gap-2">
+                <span class="gradient-text">TNTUNES</span>
+            </div>
+            
+            <!-- 桌面菜單 (Desktop Menu) -->
+            <div class="hidden md:flex gap-8 font-medium text-sm">
+                <!-- 更改 hover 顏色為紅色 -->
+                <a href="#services" class="hover:text-red-500 transition-colors">Services</a>
+                <a href="#work" class="hover:text-red-500 transition-colors">Portfolio</a>
+                <a href="#about" class="hover:text-red-500 transition-colors">About</a>
+                <!-- 更改按鈕 hover 顏色為紅色 -->
+                <a href="#contact" class="px-4 py-2 bg-white text-black rounded-full hover:bg-red-500 hover:text-white transition-all font-bold">
+                    Contact Us
+                </a>
+            </div>
+
+            <!-- 手機菜單按鈕 (Mobile Toggle) -->
+            <button id="mobile-menu-button" class="md:hidden">
+                <!-- Menu Icon (SVG) -->
+                <svg id="menu-icon" class="icon-svg w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                <!-- X Icon (SVG) - initially hidden -->
+                <svg id="x-icon" class="icon-svg w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+        </div>
+
+        <!-- 手機菜單內容 (Mobile Menu Content) -->
+        <div id="mobile-menu" class="absolute top-full left-0 w-full bg-neutral-900 border-b border-white/10 p-6 flex-col gap-4 hidden md:hidden">
+            <!-- 更改 hover 顏色和按鈕顏色為紅色 -->
+            <a href="#services" class="text-left text-lg font-medium py-2 block hover:text-red-500">Services</a>
+            <a href="#work" class="text-left text-lg font-medium py-2 block hover:text-red-500">Portfolio</a>
+            <a href="#about" class="text-left text-lg font-medium py-2 block hover:text-red-500">About</a>
+            <a href="#contact" class="text-left text-lg font-medium py-2 block text-red-500 hover:text-white">Contact Us</a>
+        </div>
+    </nav>
+
+    <!-- 英雄區塊 (Hero Section) -->
+    <header class="relative min-h-screen flex items-center justify-center hero-bg pt-20">
+        <div class="container mx-auto px-6 text-center z-10">
+            <h1 class="text-5xl md:text-8xl font-black tracking-tighter mb-6">
+                EXPLOSIVE <br class="hidden md:block" />
+                <span class="gradient-text">POP PRODUCTION</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-neutral-400 max-w-2xl mx-auto mb-10 font-light">
+                Professional composition, arrangement, and production for Hong Kong's leading media and artists.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <!-- 更改按鈕顏色和陰影顏色為紅色 -->
+                <a href="#work" class="px-8 py-4 bg-red-600 rounded-full font-bold text-lg hover:bg-red-700 transition-all hover:scale-105 shadow-[0_0_20px_rgba(220,38,38,0.3)]">
+                    View Our Work
+                </a>
+                <a href="#services" class="px-8 py-4 border border-white/20 rounded-full font-bold text-lg hover:bg-white/5 transition-all">
+                    Our Services
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-neutral-950 to-transparent pointer-events-none"></div>
+    </header>
+
+    <!-- 服務區塊 (Services Section) - 簡化版本 -->
+    <section id="services" class="py-24 bg-neutral-950 relative">
+        <div class="container mx-auto px-6">
+            <!-- 移除 CAPABILITIES 和描述段落，只保留主標題 -->
+            <h3 class="text-4xl md:text-5xl font-bold text-center mb-16">What We Do</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                
+                <!-- 服務項目 1: Television & Film Scoring (原 Music for Media) -->
+                <!-- 移除了所有 hover 效果 -->
+                <div class="p-8 rounded-2xl bg-neutral-900 border border-white/5 transition-colors duration-300">
+                    <!-- 移除了 group-hover 效果 -->
+                    <div class="mb-6 bg-neutral-800 w-16 h-16 rounded-xl flex items-center justify-center transition-colors">
+                        <!-- Clapperboard Icon (SVG) -->
+                        <svg class="icon-svg w-8 h-8 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.9 4a2 2 0 0 0-1.8-1H4.9A2 2 0 0 0 3 4v16a2 2 0 0 0 2 2h14a2 2 0 0 0 1.9-2V4Zm-8 0v8l-4-4-4 4V4h8Z"/></svg>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-3">Television & Film Scoring</h4>
+                    <p class="text-neutral-400 leading-relaxed">Original score composition, sound design, and music editing for TV dramas, feature films, and online series.</p>
+                </div>
+
+                <!-- 服務項目 2: Major Events & Commercials -->
+                <!-- 移除了所有 hover 效果 -->
+                <div class="p-8 rounded-2xl bg-neutral-900 border border-white/5 transition-colors duration-300">
+                    <!-- 移除了 group-hover 效果 -->
+                    <div class="mb-6 bg-neutral-800 w-16 h-16 rounded-xl flex items-center justify-center transition-colors">
+                        <!-- Sliders Icon (SVG) -->
+                        <svg class="icon-svg w-8 h-8 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><line x1="4" x2="4" y1="21" y2="14"/><line x1="4" x2="4" y1="10" y2="3"/><line x1="12" x2="12" y1="21" y2="12"/><line x1="12" x2="12" y1="8" y2="3"/><line x1="20" x2="20" y1="21" y2="16"/><line x1="20" x2="20" y1="12" y2="3"/><line x1="1" x2="7" y1="14" y2="14"/><line x1="9" x2="15" y1="8" y2="8"/><line x1="17" x2="23" y1="16" y2="16"/></svg>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-3">Major Events & Commercials</h4>
+                    <p class="text-neutral-400 leading-relaxed">Creative music direction, arrangement, and high-impact sound production for large-scale stage events and brand campaigns.</p>
+                </div>
+
+                <!-- 服務項目 3: Arrangements & Pop Production -->
+                <!-- 移除了所有 hover 效果 -->
+                <div class="p-8 rounded-2xl bg-neutral-900 border border-white/5 transition-colors duration-300">
+                    <!-- 移除了 group-hover 效果 -->
+                    <div class="mb-6 bg-neutral-800 w-16 h-16 rounded-xl flex items-center justify-center transition-colors">
+                        <!-- Music Icon (SVG) -->
+                        <svg class="icon-svg w-8 h-8 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                    </div>
+                    <h4 class="text-2xl font-bold mb-3">Arrangements & Pop Production</h4>
+                    <p class="text-neutral-400 leading-relaxed">Full-service music arrangement, mixing, recording, and editing for pop artists, singles, and albums.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品集區塊 (Portfolio Section) -->
+    <section id="work" class="py-24 bg-neutral-900">
+        <div class="container mx-auto px-6">
+            <!-- 更改文字顏色為紅色 -->
+            <h2 class="text-red-500 font-bold tracking-widest text-sm mb-2">SELECTED WORKS</h2>
+            <h3 class="text-4xl md:text-5xl font-bold mb-16">Featured Credits</h3>
+
+            <div class="space-y-16">
+                <!-- 分類 1: TV & Film -->
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <!-- 更改圖標顏色為紅色 -->
+                        <svg class="icon-svg w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="20" height="15" x="2" y="3" rx="2" ry="2"/><path d="m7 15 5 5 5-5"/></svg>
+                        <h4 class="text-2xl font-bold">Television & Film Scoring</h4>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        
+                        <!-- 項目 1: 大誠實家 (No One Lies) - 已是連結 -->
+                        <a href="https://viu.tv/encore/no-one-lies" target="_blank" class="portfolio-link-card p-6 rounded-xl bg-neutral-950 border border-white/5 hover:border-red-500/50 cursor-pointer">
+                            <!-- 更改文字顏色為紅色 -->
+                            <div class="text-xs text-red-500 font-bold mb-2">ViuTV Drama</div>
+                            <h5 class="text-xl font-bold mb-2">大誠實家 (No One Lies)</h5>
+                            <p class="text-sm text-neutral-400 mb-4">Original Music Composer (10 Episodes)</p>
+                            <div class="text-xs text-neutral-500">2023</div>
+                        </a>
+
+                        <!-- 項目 2: 執法者們 - 已是連結 -->
+                        <a href="https://programme.tvb.com/tc/prismbreaker_143563/%E5%9F%B7%E6%B3%95%E8%80%85%E5%80%91" target="_blank" class="portfolio-link-card p-6 rounded-xl bg-neutral-950 border border-white/5 hover:border-red-500/50 cursor-pointer">
+                            <!-- 更改文字顏色為紅色 -->
+                            <div class="text-xs text-red-500 font-bold mb-2">TVB Drama</div>
+                            <h5 class="text-xl font-bold mb-2">執法者們</h5>
+                            <p class="text-sm text-neutral-400 mb-4">Composer & Editor (4 Episodes)</p>
+                            <div class="text-xs text-neutral-500">2024</div>
+                        </a>
+                        
+                        <!-- 項目 3: 哪一天我們會紅 - 已是連結 -->
+                        <a href="https://viu.tv/encore/where-is-my-fifteen-minutes" target="_blank" class="portfolio-link-card p-6 rounded-xl bg-neutral-950 border border-white/5 hover:border-red-500/50 cursor-pointer">
+                            <!-- 更改文字顏色為紅色 -->
+                            <div class="text-xs text-red-500 font-bold mb-2">ViuTV Drama</div>
+                            <h5 class="text-xl font-bold mb-2">哪一天我們會紅</h5>
+                            <p class="text-sm text-neutral-400 mb-4">Co-composer (with Wong Wai Yi)</p>
+                            <div class="text-xs text-neutral-500">2023</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 分類 2: Commercial & Events -->
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <!-- 更改圖標顏色為紅色 -->
+                        <svg class="icon-svg w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 8l-3 3-3-3"/></svg>
+                        <h4 class="text-2xl font-bold">Major Events & Commercials</h4>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 項目 1: 香港小姐 - 已是連結 -->
+                        <a href="https://www.youtube.com/watch?v=FzWGqy0XNSQ" target="_blank" class="portfolio-link-card p-6 rounded-xl bg-neutral-950 border border-white/5 hover:border-red-500/50 cursor-pointer">
+                            <!-- 更改文字顏色為紅色 -->
+                            <div class="text-xs text-red-500 font-bold mb-2">TVB</div>
+                            <h5 class="text-xl font-bold mb-2">香港小姐</h5>
+                            <p class="text-sm text-neutral-400 mb-4">TV Music Production</p>
+                            <div class="text-xs text-neutral-500">2023 & 2024</div>
+                        </a>
+                        <!-- 項目 2: 國泰新春國際匯演之夜 - 已是連結 -->
+                        <a href="https://www.youtube.com/watch?v=GZKmZlYCwnE&t=3592s" target="_blank" class="portfolio-link-card p-6 rounded-xl bg-neutral-950 border border-white/5 hover:border-red-500/50 cursor-pointer">
+                            <!-- 更改文字顏色為紅色 -->
+                            <div class="text-xs text-red-500 font-bold mb-2">Hong Kong Tourism Board</div>
+                            <!-- 替換標題 'HK Int'l Chinese New Year Parade' 為 '國泰新春國際匯演之夜' -->
+                            <h5 class="text-xl font-bold mb-2">國泰新春國際匯演之夜</h5>
+                            <p class="text-sm text-neutral-400 mb-4">TV Music</p>
+                            <div class="text-xs text-neutral-500">2024</div>
+                        </a>
+                        <!-- 項目 3: Alipay Ad feat. 攬佬 - 已是連結 -->
+                        <a href="https://www.instagram.com/reel/DQtcwFpjtJI/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==" target="_blank" class="portfolio-link-card p-6 rounded-xl bg-neutral-950 border border-white/5 hover:border-red-500/50 cursor-pointer">
+                            <!-- 更改文字顏色為紅色 -->
+                            <div class="text-xs text-red-500 font-bold mb-2">Alipay</div>
+                            <h5 class="text-xl font-bold mb-2">Alipay Ad feat. 攬佬</h5>
+                            <p class="text-sm text-neutral-400 mb-4">Ad Music</p>
+                            <div class="text-xs text-neutral-500">2023</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 分類 3: Arrangements -->
+                <div>
+                    <div class="flex items-center gap-4 mb-8">
+                        <!-- 更改圖標顏色為紅色 -->
+                        <svg class="icon-svg w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                        <h4 class="text-2xl font-bold">Arrangements & Pop Production</h4>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 項目 1: Arrangement 項目沒有 hover 效果 -->
+                        <div class="bg-neutral-950 p-6 rounded-xl border border-white/5 transition-colors">
+                            <!-- 更改文字顏色為紅色 -->
+                            <div class="text-xs text-red-500 font-bold mb-2">Pop Single</div>
+                            <h5 class="text-xl font-bold mb-2">轉個身擁抱 - HOPUI 何佩</h5>
+                            <p class="text-sm text-neutral-400">Arrangement</p>
+                        </div>
+                        <!-- 項目 2: Arrangement 項目沒有 hover 效果 -->
+                        <div class="bg-neutral-950 p-6 rounded-xl border border-white/5 transition-colors">
+                            <!-- 更改文字顏色為紅色 -->
+                            <div class="text-xs text-red-500 font-bold mb-2">Pop Single</div>
+                            <h5 class="text-xl font-bold mb-2">心竅 - 李佳</h5>
+                            <p class="text-sm text-neutral-400">Arrangement</p>
+                        </div>
+                        <!-- 項目 3: Arrangement 項目沒有 hover 效果 -->
+                        <div class="bg-neutral-950 p-6 rounded-xl border border-white/5 transition-colors">
+                            <!-- 更改文字顏色為紅色 -->
+                            <div class="text-xs text-red-500 font-bold mb-2">Live Performance</div>
+                            <h5 class="text-xl font-bold mb-2">海闊天空 - HK Orchestra</h5>
+                            <p class="text-sm text-neutral-400">Orchestral Arrangement</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 關於我們區塊 (About Section) -->
+    <section id="about" class="py-24 bg-neutral-950 relative overflow-hidden">
+        <!-- 更改背景模糊色為紅色 -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-red-600/5 blur-3xl pointer-events-none"></div>
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <!-- 更改文字顏色為紅色 -->
+                <h2 class="text-red-500 font-bold tracking-widest text-sm mb-2">THE FOUNDER</h2>
+                <h3 class="text-4xl md:text-5xl font-bold mb-8">Matthew Tong</h3>
+                
+                <div class="text-neutral-300 mb-12 space-y-6">
+                    <p class="text-xl leading-relaxed">
+                        Matthew Tong is the founder of TNTUNES and a versatile music producer with extensive experience in Hong Kong's pop music and media production fields.
+                    </p>
+                    <!-- 刪除的段落: 
+                    <p>
+                        Currently serving as a Music Producer Assistant at <strong>Flower Music HK</strong> under the renowned composer Mr. Ng Cheuk Yin, Matthew hones his craft in high-level recording, mixing, and orchestral transcription.
+                    </p> -->
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-neutral-900 p-6 rounded-xl border border-white/5">
+                        <h4 class="flex items-center gap-3 text-lg font-bold mb-4">
+                            <!-- 更改圖標顏色為紅色 -->
+                            <svg class="icon-svg w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.42 10.98V8a2 2 0 0 0-2-2h-3.87L12 3 7.45 6H4a2 2 0 0 0-2 2v2.98"/><path d="M2 13v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6"/><path d="M12 21v-8"/><path d="m16 6-4-3-4 3"/></svg>
+                            Education
+                        </h4>
+                        <ul class="space-y-3 text-neutral-400 list-none p-0">
+                            <li><strong class="text-white">Bachelor of Music (Hons)</strong><br/>Creative Industries, HKBU (2019-2023)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-neutral-900 p-6 rounded-xl border border-white/5">
+                        <h4 class="flex items-center gap-3 text-lg font-bold mb-4">
+                            <!-- 更改圖標顏色為紅色 -->
+                            <svg class="icon-svg w-6 h-6 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 8l-3 3-3-3"/></svg>
+                            Certifications
+                        </h4>
+                        <ul class="space-y-3 text-neutral-400 list-none p-0">
+                            <li>Rockschool Electric Guitar Grade 8</li>
+                            <li>ABRSM Piano Grade 8</li>
+                            <li>ABRSM Music Theory Grade 8</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 聯繫我們 CTA (Contact CTA) -->
+    <section id="contact" class="py-24 bg-neutral-900 border-t border-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-8">Ready to create something explosive?</h2>
+            <p class="text-neutral-400 mb-10 max-w-xl mx-auto">
+                Whether you need an original score for your next drama, a catchy jingle for an ad, or professional arrangements.
+            </p>
+            <!-- 更改按鈕 hover 顏色為紅色 -->
+            <a href="mailto:contact@tntunes.com" class="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg hover:bg-red-500 hover:text-white transition-all">
+                <!-- Mail Icon (SVG) -->
+                <svg class="icon-svg w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                Get in Touch
+            </a>
+        </div>
+    </section>
+
+    <!-- 頁腳 (Footer) -->
+    <footer class="py-8 bg-neutral-950 border-t border-white/5 text-center text-neutral-600 text-sm">
+        <div class="container mx-auto px-6">
+            <p>&copy; <span id="current-year"></span> TNTUNES. All rights reserved.</p>
+            <div class="mt-2 space-x-4">
+                <span>Hong Kong</span>
+                <span>•</span>
+                <span>Music Production</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // JavaScript for smooth scrolling and dynamic elements
+            
+            // 設定當前年份 (Set current year in footer)
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // 導航欄捲動效果 (Navbar scroll effect)
+            const navbar = document.getElementById('navbar');
+            const handleScroll = () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.remove('bg-transparent', 'py-6');
+                    navbar.classList.add('bg-neutral-950/90', 'backdrop-blur-md', 'border-b', 'border-white/10', 'py-4');
+                } else {
+                    navbar.classList.remove('bg-neutral-950/90', 'backdrop-blur-md', 'border-b', 'border-white/10', 'py-4');
+                    navbar.classList.add('bg-transparent', 'py-6');
+                }
+            };
+            window.addEventListener('scroll', handleScroll);
+            
+            // 手機菜單邏輯 (Mobile Menu Logic)
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const xIcon = document.getElementById('x-icon');
+
+            const toggleMobileMenu = () => {
+                const isOpen = mobileMenu.classList.contains('flex');
+                if (isOpen) {
+                    mobileMenu.classList.remove('flex');
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.classList.remove('hidden');
+                    xIcon.classList.add('hidden');
+                } else {
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('flex');
+                    menuIcon.classList.add('hidden');
+                    xIcon.classList.remove('hidden');
+                }
+            };
+
+            menuButton.addEventListener('click', toggleMobileMenu);
+
+            // 點擊菜單連結後關閉手機菜單 (Close mobile menu after clicking a link)
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', toggleMobileMenu);
+            });
+        });
+    </script>
+</body>
+</html>
